@@ -1,0 +1,209 @@
+[
+  {
+    "prediction": "Myringosclerosis",
+    "confidence": 99.90870952606201,
+    "symptoms": "",
+    "analysis": {
+      "explanation": "Scarring or calcification of the eardrum detected.",
+      "risk": "High",
+      "advice": "Consult a doctor for evaluation and monitoring.",
+      "extra": ""
+    }
+  },
+  {
+    "prediction": "Cerumen_Impaction",
+    "confidence": 74.88670945167542,
+    "symptoms": "",
+    "analysis": {
+      "explanation": "Earwax buildup detected in the ear canal.",
+      "risk": "Low",
+      "advice": "Use ear drops or consult a doctor for safe cleaning.",
+      "extra": ""
+    }
+  },
+  {
+    "prediction": "Cerumen_Impaction",
+    "confidence": 99.98339414596558,
+    "symptoms": "",
+    "analysis": {
+      "explanation": "Earwax buildup detected in the ear canal.",
+      "risk": "High",
+      "advice": "Use ear drops or consult a doctor for safe cleaning.",
+      "extra": ""
+    }
+  },
+  {
+    "prediction": "Myringosclerosis",
+    "confidence": 99.90870952606201,
+    "symptoms": "",
+    "analysis": {
+      "explanation": "Scarring or calcification of the eardrum detected.",
+      "risk": "High",
+      "advice": "Consult a doctor for evaluation and monitoring.",
+      "extra": ""
+    }
+  },
+  {
+    "prediction": "Normal",
+    "confidence": 99.99186992645264,
+    "symptoms": "",
+    "analysis": {
+      "explanation": "No visible abnormality detected in the ear.",
+      "risk": "High",
+      "advice": "No treatment required. Maintain proper ear hygiene.",
+      "extra": ""
+    }
+  },
+  {
+    "prediction": "Cerumen_Impaction",
+    "confidence": 99.98339414596558,
+    "symptoms": "",
+    "analysis": {
+      "explanation": "Earwax buildup detected in the ear canal.",
+      "risk": "High",
+      "advice": "Use ear drops or consult a doctor for safe cleaning.",
+      "extra": ""
+    }
+  },
+  {
+    "prediction": "Acute_Otitis_Media",
+    "confidence": 99.84716773033142,
+    "symptoms": "",
+    "analysis": {
+      "explanation": "Signs of middle ear infection are present.",
+      "risk": "High",
+      "advice": "Consult an ENT specialist. Medication may be required.",
+      "extra": ""
+    }
+  },
+  {
+    "prediction": "Cerumen_Impaction",
+    "confidence": 99.98339414596558,
+    "symptoms": "",
+    "analysis": {
+      "explanation": "Earwax buildup detected in the ear canal.",
+      "risk": "High",
+      "advice": "Use ear drops or consult a doctor for safe cleaning.",
+      "extra": ""
+    }
+  },
+  {
+    "prediction": "Chronic_Otitis_Media",
+    "confidence": 99.98973608016968,
+    "symptoms": "",
+    "analysis": {
+      "explanation": "Chronic infection or inflammation observed.",
+      "risk": "High",
+      "advice": "Seek medical attention. Long-term treatment may be needed.",
+      "extra": ""
+    }
+  },
+  {
+    "prediction": "Normal",
+    "confidence": 99.99186992645264,
+    "symptoms": "",
+    "analysis": {
+      "explanation": "No visible abnormality detected in the ear.",
+      "risk": "High",
+      "advice": "No treatment required. Maintain proper ear hygiene.",
+      "extra": ""
+    }
+  },
+  {
+    "prediction": "Chronic_Otitis_Media",
+    "confidence": 99.98973608016968,
+    "symptoms": "",
+    "analysis": {
+      "explanation": "Chronic infection or inflammation observed.",
+      "risk": "High",
+      "advice": "Seek medical attention. Long-term treatment may be needed.",
+      "extra": ""
+    }
+  },
+  {
+    "prediction": "Chronic_Otitis_Media",
+    "confidence": 99.98973608016968,
+    "symptoms": "",
+    "analysis": {
+      "explanation": "Chronic infection or inflammation observed.",
+      "risk": "High",
+      "advice": "Seek medical attention. Long-term treatment may be needed.",
+      "extra": ""
+    }
+  },
+  {
+    "prediction": "Normal",
+    "confidence": 99.99186992645264,
+    "symptoms": "",
+    "analysis": {
+      "explanation": "No visible abnormality detected in the ear.",
+      "risk": "High",
+      "advice": "No treatment required. Maintain proper ear hygiene.",
+      "extra": ""
+    }
+  },
+  {
+    "prediction": "Acute_Otitis_Media",
+    "confidence": 99.84716773033142,
+    "symptoms": "",
+    "analysis": {
+      "explanation": "Signs of middle ear infection are present.",
+      "risk": "High",
+      "advice": "Consult an ENT specialist. Medication may be required.",
+      "extra": ""
+    }
+  },
+  {
+    "prediction": "Normal",
+    "confidence": 99.99186992645264,
+    "symptoms": "",
+    "analysis": {
+      "explanation": "No visible abnormality detected in the ear.",
+      "risk": "High",
+      "advice": "No treatment required. Maintain proper ear hygiene.",
+      "extra": ""
+    }
+  },
+  {
+    "prediction": "Chronic_Otitis_Media",
+    "confidence": 99.98973608016968,
+    "symptoms": "",
+    "analysis": {
+      "explanation": "Chronic infection or inflammation observed.",
+      "risk": "High",
+      "advice": "Seek medical attention. Long-term treatment may be needed.",
+      "extra": ""
+    }
+  },
+  {
+    "prediction": "Normal",
+    "confidence": 99.99186992645264,
+    "symptoms": "",
+    "analysis": {
+      "explanation": "No visible abnormality detected in the ear.",
+      "risk": "Low",
+      "advice": "No treatment required. Maintain proper ear hygiene.",
+      "extra": ""
+    }
+  },
+  {
+    "prediction": "Chronic_Otitis_Media",
+    "confidence": 99.98973608016968,
+    "explanation": "Chronic infection or inflammation observed.",
+    "risk": "High",
+    "advice": "Seek medical attention. Long-term treatment may be needed.",
+    "extra": "",
+    "image_url": "/uploads/0df9e6f699804ba994c4ec5b388f825e_com_5.jpg",
+    "heatmap_url": "/uploads/0df9e6f699804ba994c4ec5b388f825e_com_5_gradcam.jpg"
+  },
+  {
+    "prediction": "Normal",
+    "confidence": 99.99186992645264,
+    "explanation": "No visible abnormality detected in the ear.",
+    "risk": "Low",
+    "advice": "No treatment required. Maintain proper ear hygiene.",
+    "extra": "",
+    "image_url": "/uploads/6d9ee36770c344419fd1f5e5b51c57e0_norm_3.jpg",
+    "heatmap_url": "/uploads/6d9ee36770c344419fd1f5e5b51c57e0_norm_3_gradcam.jpg"
+  }
+]
