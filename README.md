@@ -186,14 +186,6 @@ User → Upload Image → Flask API → EfficientNet Model
 
 ---
 
-## 📚 Course Details
-
-- Course: Computer Vision with Deep Learning  
-- Course Code: CS8015  
-- Professor: Prof. Pritee Khanna  
-
----
-
 ## 📜 License
 
 This project is for academic and research purposes only.
