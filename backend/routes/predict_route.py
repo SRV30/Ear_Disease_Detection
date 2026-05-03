@@ -5,7 +5,8 @@ import uuid
 import logging
 from werkzeug.utils import secure_filename
 
-from utils.predict import predict_image, model
+from utils.predict import predict_image
+from utils.model_loader import get_model
 from utils.llm_agent import llm_analysis
 from utils.gradcam import get_gradcam
 from database.db import history_collection
@@ -45,7 +46,7 @@ def predict():
 
         analysis = llm_analysis(prediction, confidence, symptoms)
 
-        heatmap_path = get_gradcam(model, filepath)
+        heatmap_path = get_gradcam(get_model(), filepath)
 
         data = {
             "user": user,
@@ -74,9 +75,8 @@ def predict():
             "heatmap_url": f"/uploads/{os.path.basename(heatmap_path)}"
         })
 
-    except Exception as e:
+    except Exception:
         logging.exception("Prediction failed")
         return jsonify({
-            "error": "Internal server error",
-            "message": str(e)
+            "error": "Internal server error"
         }), 500

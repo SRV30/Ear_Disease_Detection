@@ -1,13 +1,11 @@
 import numpy as np
-import tensorflow as tf
 from tensorflow.keras.preprocessing import image
 from tensorflow.keras.applications.efficientnet import preprocess_input
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from config import MODEL_PATH, IMG_SIZE
-
-model = tf.keras.models.load_model(MODEL_PATH)
+from config import IMG_SIZE
+from utils.model_loader import get_model
 
 class_names = [
     "Acute_Otitis_Media",
@@ -17,7 +15,10 @@ class_names = [
     "Normal"
 ]
 
+
 def predict_image(img_path):
+    model = get_model()
+
     img = image.load_img(img_path, target_size=(IMG_SIZE, IMG_SIZE))
     img_array = image.img_to_array(img)
     img_array = np.expand_dims(img_array, axis=0)

@@ -203,3 +203,17 @@ This project is for academic and research purposes only.
 ## ⭐ Show Your Support
 
 If you found this project useful, consider giving it a ⭐ on GitHub!
+
+
+## ⚡ Backend Startup Optimization (Lazy Model Loading)
+
+The backend now uses lazy loading for the TensorFlow model:
+- Flask server starts immediately
+- Model loads only on first `POST /predict` request
+- Loaded model is cached and reused for all subsequent predictions
+- Thread-safe loading prevents duplicate model initialization under concurrent requests
+
+Implementation files:
+- `backend/utils/model_loader.py`
+- `backend/utils/predict.py`
+- `backend/routes/predict_route.py`
