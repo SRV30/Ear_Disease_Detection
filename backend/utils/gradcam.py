@@ -12,10 +12,12 @@ def get_gradcam(model, img_path, last_conv_layer_name="top_conv"):
     img_array = np.expand_dims(img_array, axis=0)
     img_array = preprocess_input(img_array)
 
-    grad_model = tf.keras.models.Model(
-        [model.inputs],
-        [model.get_layer(last_conv_layer_name).output, model.output]
-    )
+    try:
+        last_conv = model.get_layer(last_conv_layer_name).output
+    except Exception:
+        last_conv = model.layers[-3].output
+
+    grad_model = tf.keras.models.Model([model.inputs], [last_conv, model.output])
 
     with tf.GradientTape() as tape:
         conv_outputs, predictions = grad_model(img_array)
@@ -29,7 +31,9 @@ def get_gradcam(model, img_path, last_conv_layer_name="top_conv"):
     heatmap = conv_outputs @ pooled_grads[..., tf.newaxis]
     heatmap = tf.squeeze(heatmap)
 
-    heatmap = tf.maximum(heatmap, 0) / tf.math.reduce_max(heatmap)
+    heatmap = tf.maximum(heatmap, 0)
+    denom = tf.math.reduce_max(heatmap)
+    heatmap = heatmap / (denom + tf.keras.backend.epsilon())
     heatmap = heatmap.numpy()
 
     img = cv2.imread(img_path)

@@ -1,40 +1,73 @@
 import os
 import shutil
 import random
+from collections import defaultdict
 
 SOURCE_DIR = "data/raw"
-TRAIN_DIR = "data/train"
-VAL_DIR = "data/val"
+OUTPUT_DIR = "data"
+TRAIN_DIR = os.path.join(OUTPUT_DIR, "train")
+VAL_DIR = os.path.join(OUTPUT_DIR, "val")
+TEST_DIR = os.path.join(OUTPUT_DIR, "test")
 
-SPLIT_RATIO = 0.8
+TRAIN_RATIO = 0.7
+VAL_RATIO = 0.15
+TEST_RATIO = 0.15
+SEED = 42
 
-for cls in os.listdir(SOURCE_DIR):
+
+def clear_and_create_dirs(base_dirs, classes):
+    for base in base_dirs:
+        if os.path.exists(base):
+            shutil.rmtree(base)
+        for cls in classes:
+            os.makedirs(os.path.join(base, cls), exist_ok=True)
+
+
+def extract_group_id(filename):
+    stem = os.path.splitext(filename)[0]
+    return stem.split("_")[0]
+
+
+random.seed(SEED)
+classes = sorted([c for c in os.listdir(SOURCE_DIR) if os.path.isdir(os.path.join(SOURCE_DIR, c))])
+clear_and_create_dirs([TRAIN_DIR, VAL_DIR, TEST_DIR], classes)
+
+for cls in classes:
     class_path = os.path.join(SOURCE_DIR, cls)
-    
-    if not os.path.isdir(class_path):
-        continue
+    images = [f for f in os.listdir(class_path) if os.path.isfile(os.path.join(class_path, f))]
 
-    images = os.listdir(class_path)
-    random.shuffle(images)
+    grouped = defaultdict(list)
+    for img in images:
+        grouped[extract_group_id(img)].append(img)
 
-    split_index = int(len(images) * SPLIT_RATIO)
+    groups = list(grouped.keys())
+    random.shuffle(groups)
 
-    train_images = images[:split_index]
-    val_images = images[split_index:]
+    n = len(groups)
+    n_train = int(n * TRAIN_RATIO)
+    n_val = int(n * VAL_RATIO)
 
-    os.makedirs(os.path.join(TRAIN_DIR, cls), exist_ok=True)
-    os.makedirs(os.path.join(VAL_DIR, cls), exist_ok=True)
+    train_groups = set(groups[:n_train])
+    val_groups = set(groups[n_train:n_train + n_val])
+    test_groups = set(groups[n_train + n_val:])
 
-    for img in train_images:
-        src = os.path.join(class_path, img)
-        dst = os.path.join(TRAIN_DIR, cls, img)
-        shutil.copy(src, dst)
+    counts = {"train": 0, "val": 0, "test": 0}
 
-    for img in val_images:
-        src = os.path.join(class_path, img)
-        dst = os.path.join(VAL_DIR, cls, img)
-        shutil.copy(src, dst)
+    for gid, imgs in grouped.items():
+        if gid in train_groups:
+            split = "train"
+            dst_base = TRAIN_DIR
+        elif gid in val_groups:
+            split = "val"
+            dst_base = VAL_DIR
+        else:
+            split = "test"
+            dst_base = TEST_DIR
 
-    print(f"{cls}: {len(train_images)} train, {len(val_images)} val")
+        for img in imgs:
+            shutil.copy(os.path.join(class_path, img), os.path.join(dst_base, cls, img))
+            counts[split] += 1
 
-print("Data split completed")
+    print(f"{cls}: {counts['train']} train, {counts['val']} val, {counts['test']} test")
+
+print("Data split completed (group-aware, deterministic)")

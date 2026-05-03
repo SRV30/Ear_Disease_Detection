@@ -271,3 +271,15 @@ IMG_SIZE=224
 - `GET /users/search?q=<email_fragment>`
 - `POST /connections/request` `{ target_user_id }`
 - `POST /connections/accept` `{ requester_user_id }`
+
+## 🧠 ML Training Pipeline Fixes
+
+- Data splitting upgraded to deterministic **train/val/test** with group-aware assignment to reduce leakage risk (`backend/utils/split_data.py`).
+- Training model aligned to **EfficientNet-B3** with two-stage fine-tuning (`backend/model/train.py`).
+- Added test-set evaluation outputs:
+  - Accuracy/loss
+  - Macro F1
+  - Confusion matrix (`models/confusion_matrix.npy`)
+  - Detailed classification report JSON (`models/eval_metrics.json`)
+- Added confidence-threshold inference fallback (`Uncertain`) for low-confidence predictions.
+- Improved Grad-CAM numerical stability (safe denominator + fallback conv layer).

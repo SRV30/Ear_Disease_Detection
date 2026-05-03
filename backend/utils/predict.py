@@ -4,7 +4,7 @@ from tensorflow.keras.applications.efficientnet import preprocess_input
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from config import IMG_SIZE
+from config import IMG_SIZE, CONFIDENCE_THRESHOLD
 from utils.model_loader import get_model
 
 class_names = [
@@ -28,5 +28,8 @@ def predict_image(img_path):
 
     predicted_class = class_names[np.argmax(preds)]
     confidence = float(np.max(preds)) * 100
+
+    if confidence < CONFIDENCE_THRESHOLD:
+        predicted_class = "Uncertain"
 
     return predicted_class, confidence, preds.tolist()

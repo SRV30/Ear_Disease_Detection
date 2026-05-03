@@ -4,6 +4,7 @@ from tensorflow.keras.applications.efficientnet import preprocess_input
 IMG_SIZE = 224
 BATCH_SIZE = 32
 
+
 def get_data_generators(train_dir, val_dir):
     train_datagen = tf.keras.preprocessing.image.ImageDataGenerator(
         preprocessing_function=preprocess_input,
@@ -14,7 +15,7 @@ def get_data_generators(train_dir, val_dir):
         horizontal_flip=True
     )
 
-    val_datagen = tf.keras.preprocessing.image.ImageDataGenerator(
+    eval_datagen = tf.keras.preprocessing.image.ImageDataGenerator(
         preprocessing_function=preprocess_input
     )
 
@@ -26,7 +27,7 @@ def get_data_generators(train_dir, val_dir):
         shuffle=True
     )
 
-    val_data = val_datagen.flow_from_directory(
+    val_data = eval_datagen.flow_from_directory(
         val_dir,
         target_size=(IMG_SIZE, IMG_SIZE),
         batch_size=BATCH_SIZE,
@@ -35,3 +36,14 @@ def get_data_generators(train_dir, val_dir):
     )
 
     return train_data, val_data
+
+
+def get_eval_generator(data_dir):
+    eval_datagen = tf.keras.preprocessing.image.ImageDataGenerator(preprocessing_function=preprocess_input)
+    return eval_datagen.flow_from_directory(
+        data_dir,
+        target_size=(IMG_SIZE, IMG_SIZE),
+        batch_size=BATCH_SIZE,
+        class_mode='sparse',
+        shuffle=False
+    )
