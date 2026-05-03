@@ -1,7 +1,12 @@
-flask
+Flask
 flask-cors
+flask-jwt-extended
+pymongo
 tensorflow
 numpy
 scikit-learn
-pillow
-werkzeug
+Pillow
+Werkzeug
+bcrypt
+python-dotenv
+opencv-python

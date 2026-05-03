@@ -1,54 +1,50 @@
-# Backend Run Guide (EarCare AI Clinic)
+# Backend Run Guide (Windows PowerShell)
 
-## 1) Prerequisites
-- Python 3.10+ (recommended 3.10/3.11)
-- MongoDB running locally or a cloud MongoDB URI
-- Trained model file at `models/best_model.keras`
-
-## 2) Create environment file
-Create `backend/.env`:
-
-```env
-MONGO_URI=mongodb://127.0.0.1:27017/earcare
-JWT_SECRET_KEY=replace_with_a_long_random_secret
+## 1) Open project and go to backend
+```powershell
+cd /d <PROJECT_ROOT>\backend
 ```
 
-## 3) Create and activate a virtual environment
-```bash
-cd backend
-python -m venv .venv
-source .venv/bin/activate
+## 2) Create virtual environment (first time only)
+```powershell
+py -3 -m venv .venv
 ```
 
-## 4) Install dependencies
-```bash
-pip install --upgrade pip
-pip install -r requirements.txt
+## 3) Activate virtual environment
+```powershell
+.\.venv\Scripts\Activate.ps1
 ```
 
-## 5) Start backend API
-```bash
+## 4) Confirm Python/Pip are from venv
+```powershell
+python -c "import sys; print(sys.executable)"
+python -m pip --version
+```
+
+## 5) Install dependencies
+```powershell
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+```
+
+## 6) Fix missing flask-cors explicitly (if needed)
+```powershell
+python -m pip install flask-cors
+python -c "import flask_cors; print(flask_cors.__version__)"
+```
+
+## 7) Set environment variables (if .env not used)
+```powershell
+$env:MONGO_URI="mongodb://127.0.0.1:27017/earcare"
+$env:JWT_SECRET_KEY="replace_with_long_random_secret"
+```
+
+## 8) Start backend
+```powershell
 python app.py
 ```
 
-The API starts on `http://127.0.0.1:5000`.
-
-## 6) Quick health check
-```bash
+## 9) Health check
+```powershell
 curl http://127.0.0.1:5000/
 ```
-
-Expected response contains:
-- `message: Ear Disease Detection API Running`
-- `status: healthy`
-
-## 7) Optional: JWT flow smoke-test
-1. `POST /signup` with JSON `{ "email": "test@example.com", "password": "test1234" }`
-2. `POST /login` to receive access/refresh token
-3. Use `Authorization: Bearer <access_token>` to call `POST /predict` and `GET /history`
-
-## 8) Common issues
-- Model load error: ensure `models/best_model.keras` exists.
-- JWT error: ensure `JWT_SECRET_KEY` is set.
-- Database error: ensure `MONGO_URI` is reachable.
-- CORS/UI mismatch: frontend currently points to `http://127.0.0.1:5000`.

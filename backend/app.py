@@ -17,6 +17,7 @@ CORS(app)
 app.config["JWT_SECRET_KEY"] = JWT_SECRET_KEY
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = 900
 app.config["JWT_REFRESH_TOKEN_EXPIRES"] = 86400
+app.config["MAX_CONTENT_LENGTH"] = 5 * 1024 * 1024
 
 jwt = JWTManager(app)
 
@@ -51,9 +52,13 @@ def uploaded_file(filename):
 def not_found(e):
     return {"error": "Route not found"}, 404
 
+@app.errorhandler(413)
+def payload_too_large(e):
+    return {"error": "File too large (max 5MB)"}, 413
+
 @app.errorhandler(500)
 def server_error(e):
-    logging.error(str(e))
+    logging.exception("Unhandled server error")
     return {"error": "Internal server error"}, 500
 
 if __name__ == "__main__":
