@@ -250,3 +250,24 @@ RATE_LIMIT_PREDICT=20 per minute
 UPLOAD_RETENTION_HOURS=24
 IMG_SIZE=224
 ```
+
+
+## 👤 Profile & Connections APIs
+
+### MongoDB schema additions
+- `users`: `{ _id, email(unique), password(bcrypt hash), name, avatar }`
+- `password_resets`: `{ email, token, expires_at(TTL), used }`
+- `connections`: `{ from_user, to_user, status }` where status is `pending|accepted`
+
+### New auth/security endpoints
+- `POST /forgot-password` → generates reset token (email delivery hook)
+- `POST /reset-password` → validates token and updates bcrypt password hash
+- `POST /refresh` → returns new access token from refresh token
+
+### User/profile endpoints
+- `GET /profile`
+- `PATCH /profile` (name/avatar)
+- `GET /profile/history?page=1&limit=10`
+- `GET /users/search?q=<email_fragment>`
+- `POST /connections/request` `{ target_user_id }`
+- `POST /connections/accept` `{ requester_user_id }`

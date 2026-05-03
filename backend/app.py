@@ -10,6 +10,7 @@ from extensions import limiter
 from routes.predict_route import predict_bp
 from routes.history_route import history_bp
 from routes.auth_route import auth_bp
+from routes.user_route import user_bp
 
 app = Flask(__name__)
 
@@ -39,6 +40,7 @@ logging.basicConfig(
 app.register_blueprint(predict_bp)
 app.register_blueprint(history_bp)
 app.register_blueprint(auth_bp)
+app.register_blueprint(user_bp)
 
 @app.route("/")
 def home():
