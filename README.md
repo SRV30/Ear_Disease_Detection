@@ -283,3 +283,35 @@ IMG_SIZE=224
   - Detailed classification report JSON (`models/eval_metrics.json`)
 - Added confidence-threshold inference fallback (`Uncertain`) for low-confidence predictions.
 - Improved Grad-CAM numerical stability (safe denominator + fallback conv layer).
+
+## 🎨 Frontend (React + Tailwind) Architecture
+
+### Folder structure
+```txt
+frontend/src/
+  context/
+    AuthContext.jsx
+  services/
+    api.js
+  components/
+    Navbar.jsx
+    ProtectedRoute.jsx
+  pages/
+    Login.jsx
+    Register.jsx
+    ForgotPassword.jsx
+    ResetPassword.jsx
+    Dashboard.jsx
+    History.jsx
+    Profile.jsx
+    Connections.jsx
+```
+
+### Implemented frontend features
+- Authentication UI: login, signup, forgot-password, reset-password with validation and toast feedback.
+- Dashboard: image upload, prediction, confidence, Grad-CAM preview.
+- History: paginated prediction list.
+- Profile: load and edit name/avatar + show identity.
+- Connections: user search, send request, accept request.
+- Secure API layer: axios interceptor with refresh-token retry flow.
+- State management: Context API for auth state and logout/login lifecycle.

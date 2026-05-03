@@ -1,58 +1,15 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-import Home from "./pages/Home";
-import Diagnose from "./pages/Diagnose";
-import Result from "./pages/Result";
-import About from "./pages/About";
-import Contact from "./pages/Contact";
-import Privacy from "./pages/Privacy";
+import ProtectedRoute from "./components/ProtectedRoute";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import ProtectedRoute from "./components/ProtectedRoute";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
+import Dashboard from "./pages/Dashboard";
+import History from "./pages/History";
+import Profile from "./pages/Profile";
+import Connections from "./pages/Connections";
 
-function App() {
-  return (
-    <BrowserRouter>
-      <div className="min-h-screen flex flex-col bg-linear-to-br from-blue-100 via-white to-purple-100">
-        <Navbar />
-
-        <main className="flex-1 px-4 py-6">
-          <div className="max-w-6xl mx-auto">
-            <Routes>
-              <Route path="/" element={<Home />} />
-
-              <Route
-                path="/diagnose"
-                element={
-                  <ProtectedRoute>
-                    <Diagnose />
-                  </ProtectedRoute>
-                }
-              />
-
-              <Route
-                path="/result"
-                element={
-                  <ProtectedRoute>
-                    <Result />
-                  </ProtectedRoute>
-                }
-              />
-
-              <Route path="/about" element={<About />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/privacy" element={<Privacy />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-            </Routes>
-          </div>
-        </main>
-
-        <Footer />
-      </div>
-    </BrowserRouter>
-  );
+export default function App(){
+ return <BrowserRouter><div className="min-h-screen bg-slate-50"><Navbar/><main className="max-w-6xl mx-auto p-4"><Routes><Route path="/" element={<Navigate to="/dashboard" replace />} /><Route path="/login" element={<Login/>}/><Route path="/signup" element={<Register/>}/><Route path="/forgot-password" element={<ForgotPassword/>}/><Route path="/reset-password" element={<ResetPassword/>}/><Route path="/dashboard" element={<ProtectedRoute><Dashboard/></ProtectedRoute>}/><Route path="/history" element={<ProtectedRoute><History/></ProtectedRoute>}/><Route path="/profile" element={<ProtectedRoute><Profile/></ProtectedRoute>}/><Route path="/connections" element={<ProtectedRoute><Connections/></ProtectedRoute>}/></Routes></main></div></BrowserRouter>
 }
-
-export default App;
