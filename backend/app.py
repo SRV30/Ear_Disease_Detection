@@ -2,10 +2,11 @@ from flask import Flask, send_from_directory
 from flask_cors import CORS
 import os
 import logging
-from flask_jwt_extended import JWTManager
+from flask_jwt_extended import JWTManager, jwt_required
 from database.db import blacklist_collection
 
-from config import UPLOAD_FOLDER, JWT_SECRET_KEY
+from config import UPLOAD_FOLDER, JWT_SECRET_KEY, MAX_CONTENT_LENGTH, RATE_LIMIT_DEFAULT
+from extensions import limiter
 from routes.predict_route import predict_bp
 from routes.history_route import history_bp
 from routes.auth_route import auth_bp
@@ -14,10 +15,12 @@ app = Flask(__name__)
 
 CORS(app)
 
+limiter.init_app(app, default_limits=[lim.strip() for lim in RATE_LIMIT_DEFAULT.split(";") if lim.strip()])
+
 app.config["JWT_SECRET_KEY"] = JWT_SECRET_KEY
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = 900
 app.config["JWT_REFRESH_TOKEN_EXPIRES"] = 86400
-app.config["MAX_CONTENT_LENGTH"] = 5 * 1024 * 1024
+app.config["MAX_CONTENT_LENGTH"] = MAX_CONTENT_LENGTH
 
 jwt = JWTManager(app)
 
@@ -45,6 +48,7 @@ def home():
     }
 
 @app.route("/uploads/<filename>")
+@jwt_required()
 def uploaded_file(filename):
     return send_from_directory(UPLOAD_FOLDER, filename)
 

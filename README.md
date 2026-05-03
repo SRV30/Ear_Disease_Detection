@@ -217,3 +217,36 @@ Implementation files:
 - `backend/utils/model_loader.py`
 - `backend/utils/predict.py`
 - `backend/routes/predict_route.py`
+
+## 🔐 Security & Reliability Upgrades
+
+### Added protections
+- JWT-protected `/uploads/<filename>` route for private image access.
+- Upload hard limit via `MAX_CONTENT_LENGTH`.
+- File validation checks extension + MIME type + actual image integrity (`Pillow.verify()`).
+- Central auth validation for signup/login:
+  - Email format validation
+  - Password strength (8-64 chars, letter + number)
+- Internal server errors no longer leak exception messages.
+
+### Stability improvements
+- Rate limiting:
+  - `/signup`
+  - `/login`
+  - `/predict`
+- Paginated history API: `GET /history?page=1&limit=10`
+- Old upload cleanup (time-based retention) executed periodically.
+- Configurable limits and controls via `.env`.
+
+### New env variables
+Add these in `backend/.env`:
+
+```env
+MAX_CONTENT_LENGTH=5242880
+RATE_LIMIT_DEFAULT=200 per day;50 per hour
+RATE_LIMIT_SIGNUP=5 per minute
+RATE_LIMIT_LOGIN=10 per minute
+RATE_LIMIT_PREDICT=20 per minute
+UPLOAD_RETENTION_HOURS=24
+IMG_SIZE=224
+```
