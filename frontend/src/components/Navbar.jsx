@@ -1,6 +1,8 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import logo from "../assets/favicon.png";
+import api from "../services/api";
+import { logoutSession } from "../services/authSession";
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -8,9 +10,8 @@ export default function Navbar() {
     !!localStorage.getItem("access_token")
   );
 
-  const handleLogout = () => {
-    localStorage.removeItem("access_token");
-    localStorage.removeItem("refresh_token");
+  const handleLogout = async () => {
+    await logoutSession(api);
     setIsLoggedIn(false);
     navigate("/login");
   };

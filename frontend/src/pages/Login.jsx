@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../services/api";
+import SystemNotice from "../components/SystemNotice";
+import { mapApiError } from "../services/apiErrorMap";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -8,9 +10,10 @@ export default function Login() {
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [notice, setNotice] = useState(null);
 
   const handleLogin = async () => {
-    if (!email || !password) return alert("Fill all fields");
+    if (!email || !password) return setNotice({ type: "warning", message: "Fill all fields" });
 
     try {
       setLoading(true);
@@ -23,7 +26,7 @@ export default function Login() {
       navigate("/diagnose");
       window.location.reload();
     } catch {
-      alert("Invalid email or password");
+      setNotice(mapApiError(undefined, "Invalid email or password"));
     } finally {
       setLoading(false);
     }
@@ -31,6 +34,7 @@ export default function Login() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-blue-100 via-white to-purple-100 px-4">
+      <SystemNotice notice={notice} onClose={() => setNotice(null)} />
       <div className="w-full max-w-md backdrop-blur-xl bg-white/60 border border-white/30 shadow-2xl rounded-3xl p-8 space-y-6">
         <div className="text-center">
           <h2 className="text-2xl font-bold text-gray-800">Welcome Back 👋</h2>

@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import ResultCard from "../components/ResultCard";
+import { isValidResultPayload } from "../utils/responseValidators";
 
 export default function Result() {
   const location = useLocation();
@@ -7,7 +8,7 @@ export default function Result() {
 
   const result = location.state?.result;
 
-  if (!result) {
+  if (!result || !isValidResultPayload(result)) {
     return (
       <div className="text-center mt-10">
         <h2>No Result</h2>

@@ -8,6 +8,7 @@ import {
   Legend
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
+import HeatmapPanel from "./HeatmapPanel";
 
 ChartJS.register(
   CategoryScale,
@@ -100,6 +101,8 @@ export default function ResultCard({ result, pdfRef }) {
       </div>
 
       {/* Extra */}
+      <HeatmapPanel backendURL={import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:5000"} imageUrl={result.image_url} heatmapUrl={result.heatmap_url} />
+
       {result.extra && (
         <div>
           <h3 className="font-semibold text-gray-800 mb-1">Extra Info</h3>

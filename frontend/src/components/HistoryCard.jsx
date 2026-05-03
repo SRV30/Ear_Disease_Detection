@@ -18,7 +18,7 @@ export default function HistoryCard({ history, backendURL }) {
 
         return (
           <div
-            key={idx}
+            key={item._id || `${item.image_url}-${item.prediction}-${idx}`}
             className="flex items-center gap-4 border p-3 rounded-lg mb-2"
           >
             <img

@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../services/api";
+import SystemNotice from "../components/SystemNotice";
+import { mapApiError } from "../services/apiErrorMap";
 
 export default function Register() {
   const [email, setEmail] = useState("");
@@ -11,18 +13,19 @@ export default function Register() {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
+  const [notice, setNotice] = useState(null);
 
   const handleRegister = async () => {
     if (!email || !password || !confirm) {
-      return alert("Fill all fields");
+      return setNotice({ type: "warning", message: "Fill all fields" });
     }
 
     if (password !== confirm) {
-      return alert("Passwords do not match");
+      return setNotice({ type: "warning", message: "Passwords do not match" });
     }
 
     if (password.length < 6) {
-      return alert("Password must be at least 6 characters");
+      return setNotice({ type: "warning", message: "Password must be at least 6 characters" });
     }
 
     try {
@@ -30,10 +33,10 @@ export default function Register() {
 
       await api.post("/signup", { email, password });
 
-      alert("Account created successfully");
+      setNotice({ type: "warning", message: "Account created successfully" });
       navigate("/login");
     } catch {
-      alert("Signup failed (email may already exist)");
+      setNotice(mapApiError(undefined, "Signup failed (email may already exist)"));
     } finally {
       setLoading(false);
     }
@@ -41,6 +44,7 @@ export default function Register() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-blue-100 via-white to-purple-100 px-4">
+      <SystemNotice notice={notice} onClose={() => setNotice(null)} />
       <div className="w-full max-w-md backdrop-blur-xl bg-white/60 border border-white/30 shadow-2xl rounded-3xl p-8 space-y-6">
 
         <div className="text-center">
