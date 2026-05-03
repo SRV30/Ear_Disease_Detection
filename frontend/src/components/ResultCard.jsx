@@ -66,28 +66,6 @@ export default function ResultCard({ result, pdfRef }) {
       {/* Divider */}
       <div className="h-0.5 w-full bg-linear-to-r from-blue-500 via-purple-500 to-blue-500 opacity-50 rounded-full" />
 
-      {/* Chart (if probabilities exist) */}
-      {result.probabilities && (
-        <Bar
-          className="max-w-xl mx-auto"
-          data={{
-            labels: ["Normal", "Wax", "Infection"],
-            datasets: [
-              {
-                data: result.probabilities,
-                backgroundColor: ["#4F46E5", "#F59E0B", "#EF4444"],
-                borderRadius: 8
-              }
-            ]
-          }}
-          options={{
-            plugins: { legend: { display: false } },
-            scales: { y: { beginAtZero: true, max: 100 } },
-            responsive: true
-          }}
-        />
-      )}
-
       {/* Explanation */}
       <div>
         <h3 className="font-semibold text-gray-800 mb-1">Explanation</h3>
