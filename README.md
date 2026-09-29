@@ -145,13 +145,7 @@ User → Upload Image → Flask API → EfficientNet Model
 
 ## 📸 Screenshots
 
-> Add your project screenshots here:
-
-- UI Dashboard  
-- Image Upload Interface  
-- Prediction Output  
-- Grad-CAM Heatmap  
-
+https://drive.google.com/file/d/1Sfiavxmrg6wtNisTqRmeEYrrCt03_czZ/view?usp=sharing
 ---
 
 ## 🚀 Impact
