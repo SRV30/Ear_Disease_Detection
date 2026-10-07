@@ -1,6 +1,8 @@
 flask
 flask-cors
 tensorflow
+torch
+torchvision
 numpy
 scikit-learn
 pillow
