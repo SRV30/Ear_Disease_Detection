@@ -1,0 +1,10 @@
+{
+  "method": "temperature_scaling",
+  "temperature": 0.6312041878700256,
+  "calibration_set": "validation",
+  "validation_images": 418,
+  "uncalibrated_nll": 5.32665362698026e-05,
+  "calibrated_nll": 1.4145400939469255e-07,
+  "uncalibrated_ece": 5.328655242919922e-05,
+  "calibrated_ece": 5.960464477539063e-08
+}

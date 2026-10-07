@@ -34,8 +34,9 @@ export default function Contact() {
             Contact EarCare AI Clinic
           </h2>
           <p className="text-sm md:text-base text-slate-600 leading-relaxed">
-            Have questions about AI diagnosis, want to collaborate, or need support?
-            Reach out to us and our team will get back within 24 hours on working days.
+            Have questions about AI diagnosis, want to collaborate, or need
+            support? Reach out to us and our team will get back within 24 hours
+            on working days.
           </p>
         </div>
 
@@ -45,8 +46,9 @@ export default function Contact() {
               Quick Enquiry Form
             </h3>
             <p className="text-xs md:text-sm text-slate-500 mb-6">
-              Share your details and query below. This form is for demo purposes only
-              in this project – actual hospital systems may connect this to email or CRM.
+              Share your details and query below. This form is for demo purposes
+              only in this project – actual hospital systems may connect this to
+              email or CRM.
             </p>
 
             <form className="grid md:grid-cols-2 gap-4 text-sm">
@@ -61,7 +63,9 @@ export default function Contact() {
                 />
               </div>
               <div className="md:col-span-1">
-                <label className="block text-slate-600 mb-1">Email Address</label>
+                <label className="block text-slate-600 mb-1">
+                  Email Address
+                </label>
                 <input
                   name="email"
                   value={form.email}
@@ -71,7 +75,9 @@ export default function Contact() {
                 />
               </div>
               <div className="md:col-span-1">
-                <label className="block text-slate-600 mb-1">Phone Number</label>
+                <label className="block text-slate-600 mb-1">
+                  Phone Number
+                </label>
                 <input
                   name="phone"
                   value={form.phone}
@@ -109,7 +115,8 @@ export default function Contact() {
                   Submit Enquiry
                 </button>
                 <p className="text-[11px] text-slate-500">
-                  By submitting, you agree that this is a demo form for an academic project.
+                  By submitting, you agree that this is a demo form for an
+                  academic project.
                 </p>
               </div>
             </form>
@@ -122,16 +129,18 @@ export default function Contact() {
               </h3>
               <div className="space-y-3 text-sm text-slate-600">
                 <p>
-                  <span className="font-semibold text-slate-800">Address:</span><br />
-                  Hall 1,<br />
-                  Indian Institute of Information Technology, Design & Manufacturing Jabalpur (IIITDMJ)
+                  <span className="font-semibold text-slate-800">Address:</span>
+                  <br />
+                  India
                 </p>
                 <p>
-                  <span className="font-semibold text-slate-800">Phone:</span><br />
+                  <span className="font-semibold text-slate-800">Phone:</span>
+                  <br />
                   +91-9182637455
                 </p>
                 <p>
-                  <span className="font-semibold text-slate-800">Email:</span><br />
+                  <span className="font-semibold text-slate-800">Email:</span>
+                  <br />
                   care@earcare-ai.com
                 </p>
               </div>
@@ -142,8 +151,9 @@ export default function Contact() {
               <p>Mon - Fri: 9:00 AM – 6:00 PM</p>
               <p>Sat: 10:00 AM – 2:00 PM</p>
               <p className="text-xs opacity-90">
-                This is a student project UI. For real medical emergencies, please
-                visit the nearest hospital or call your local emergency number.
+                This is a student project UI. For real medical emergencies,
+                please visit the nearest hospital or call your local emergency
+                number.
               </p>
             </div>
           </div>
@@ -155,8 +165,9 @@ export default function Contact() {
               Find Us on Google Maps
             </h3>
             <p className="text-xs md:text-sm text-slate-600 mb-3">
-              Open Google Maps to view ENT hospitals and clinical facilities around your area.
-              In a real deployment, this section can be configured to show the exact clinic location.
+              Open Google Maps to view ENT hospitals and clinical facilities
+              around your area. In a real deployment, this section can be
+              configured to show the exact clinic location.
             </p>
             <a
               href="https://www.google.com/maps/search/ENT+Hospital/"
@@ -174,7 +185,7 @@ export default function Contact() {
             </div>
             <div className="h-64 bg-slate-200 flex items-center justify-center text-slate-500 text-xs">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3667.8146199961125!2d80.0247353!3d23.1769651!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3981a94397365dd3%3A0x5f9aeb812c2678c9!2sIIITDM%20Jabalpur!5e0!3m2!1sen!2sin!4v1774825346966!5m2!1sen!2sin"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30774009.023118477!2d61.002941406872694!3d19.6873662518403!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30635ff06b92b791%3A0xd78c4fa1854213a6!2sIndia!5e0!3m2!1sen!2sin!4v1791338291293!5m2!1sen!2sin"
                 width="600"
                 height="450"
                 style={{ border: 0 }}

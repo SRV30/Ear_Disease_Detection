@@ -1,0 +1,584 @@
+{
+  "method": "maximum_softmax_probability",
+  "temperature": 0.6312041878700256,
+  "threshold": null,
+  "images": 96,
+  "results": [
+    {
+      "max_softmax": 0.9999995231628418,
+      "ood_score": 4.76837158203125e-07,
+      "prediction": "Acute Otitis Media",
+      "image": "known\\aom (407).jpg"
+    },
+    {
+      "max_softmax": 0.9999996423721313,
+      "ood_score": 3.5762786865234375e-07,
+      "prediction": "Acute Otitis Media",
+      "image": "known\\aom (410).jpg"
+    },
+    {
+      "max_softmax": 0.9999996423721313,
+      "ood_score": 3.5762786865234375e-07,
+      "prediction": "Acute Otitis Media",
+      "image": "known\\aom (418).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Acute Otitis Media",
+      "image": "known\\aom (470).jpg"
+    },
+    {
+      "max_softmax": 0.9999991655349731,
+      "ood_score": 8.344650268554688e-07,
+      "prediction": "Acute Otitis Media",
+      "image": "known\\aom (481).jpg"
+    },
+    {
+      "max_softmax": 0.9999996423721313,
+      "ood_score": 3.5762786865234375e-07,
+      "prediction": "Acute Otitis Media",
+      "image": "known\\aom (482).jpg"
+    },
+    {
+      "max_softmax": 0.999998927116394,
+      "ood_score": 1.0728836059570312e-06,
+      "prediction": "Acute Otitis Media",
+      "image": "known\\aom (490).jpg"
+    },
+    {
+      "max_softmax": 0.9999995231628418,
+      "ood_score": 4.76837158203125e-07,
+      "prediction": "Acute Otitis Media",
+      "image": "known\\aom (494).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Acute Otitis Media",
+      "image": "known\\aom (522).jpg"
+    },
+    {
+      "max_softmax": 0.9999998807907104,
+      "ood_score": 1.1920928955078125e-07,
+      "prediction": "Acute Otitis Media",
+      "image": "known\\aom (523).jpg"
+    },
+    {
+      "max_softmax": 0.9999995231628418,
+      "ood_score": 4.76837158203125e-07,
+      "prediction": "Acute Otitis Media",
+      "image": "known\\aom (533).jpg"
+    },
+    {
+      "max_softmax": 0.9999997615814209,
+      "ood_score": 2.384185791015625e-07,
+      "prediction": "Acute Otitis Media",
+      "image": "known\\aom (539).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Acute Otitis Media",
+      "image": "known\\aom (564).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Cerumen Impaction",
+      "image": "known\\ci (100).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Cerumen Impaction",
+      "image": "known\\ci (105).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Cerumen Impaction",
+      "image": "known\\ci (111).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Cerumen Impaction",
+      "image": "known\\ci (40).jpg"
+    },
+    {
+      "max_softmax": 0.9999998807907104,
+      "ood_score": 1.1920928955078125e-07,
+      "prediction": "Cerumen Impaction",
+      "image": "known\\ci (41).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Cerumen Impaction",
+      "image": "known\\ci (42).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Cerumen Impaction",
+      "image": "known\\ci (86).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Cerumen Impaction",
+      "image": "known\\ci (87).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Cerumen Impaction",
+      "image": "known\\ci (88).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Cerumen Impaction",
+      "image": "known\\ci (89).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Cerumen Impaction",
+      "image": "known\\ci (90).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Cerumen Impaction",
+      "image": "known\\ci (92).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Cerumen Impaction",
+      "image": "known\\ci (95).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Cerumen Impaction",
+      "image": "known\\ci (98).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Chronic Otitis Media",
+      "image": "known\\com (1).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Chronic Otitis Media",
+      "image": "known\\com (10).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Chronic Otitis Media",
+      "image": "known\\com (122).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Chronic Otitis Media",
+      "image": "known\\com (125).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Chronic Otitis Media",
+      "image": "known\\com (127).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Chronic Otitis Media",
+      "image": "known\\com (13).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Chronic Otitis Media",
+      "image": "known\\com (14).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Chronic Otitis Media",
+      "image": "known\\com (19).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Chronic Otitis Media",
+      "image": "known\\com (2).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Chronic Otitis Media",
+      "image": "known\\com (28).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Chronic Otitis Media",
+      "image": "known\\com (32).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Chronic Otitis Media",
+      "image": "known\\com (7).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Chronic Otitis Media",
+      "image": "known\\com (78).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Chronic Otitis Media",
+      "image": "known\\com (79).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Chronic Otitis Media",
+      "image": "known\\com (82).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Myringosclerosis",
+      "image": "known\\mys (1).jpg"
+    },
+    {
+      "max_softmax": 0.9999995231628418,
+      "ood_score": 4.76837158203125e-07,
+      "prediction": "Myringosclerosis",
+      "image": "known\\mys (19).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Myringosclerosis",
+      "image": "known\\mys (2).jpg"
+    },
+    {
+      "max_softmax": 0.9999994039535522,
+      "ood_score": 5.960464477539062e-07,
+      "prediction": "Myringosclerosis",
+      "image": "known\\mys (21).jpg"
+    },
+    {
+      "max_softmax": 0.9999984502792358,
+      "ood_score": 1.5497207641601562e-06,
+      "prediction": "Myringosclerosis",
+      "image": "known\\mys (22).jpg"
+    },
+    {
+      "max_softmax": 0.9999990463256836,
+      "ood_score": 9.5367431640625e-07,
+      "prediction": "Myringosclerosis",
+      "image": "known\\mys (24).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Myringosclerosis",
+      "image": "known\\mys (3).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Myringosclerosis",
+      "image": "known\\mys (4).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Myringosclerosis",
+      "image": "known\\mys (5).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Myringosclerosis",
+      "image": "known\\mys (6).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Myringosclerosis",
+      "image": "known\\mys (61).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Myringosclerosis",
+      "image": "known\\mys (63).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Myringosclerosis",
+      "image": "known\\mys (65).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Myringosclerosis",
+      "image": "known\\mys (67).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Myringosclerosis",
+      "image": "known\\mys (7).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Normal",
+      "image": "known\\norm (10).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Normal",
+      "image": "known\\norm (11).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Normal",
+      "image": "known\\norm (13).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Normal",
+      "image": "known\\norm (14).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Normal",
+      "image": "known\\norm (18).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Normal",
+      "image": "known\\norm (22).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Normal",
+      "image": "known\\norm (24).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Normal",
+      "image": "known\\norm (28).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Normal",
+      "image": "known\\norm (3).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Normal",
+      "image": "known\\norm (32).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Normal",
+      "image": "known\\norm (6).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Normal",
+      "image": "known\\norm (7).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Normal",
+      "image": "known\\norm (71).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Normal",
+      "image": "known\\norm (73).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Normal",
+      "image": "known\\norm (75).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Normal",
+      "image": "known\\norm (76).jpg"
+    },
+    {
+      "max_softmax": 0.9999995231628418,
+      "ood_score": 4.76837158203125e-07,
+      "prediction": "Normal",
+      "image": "known\\norm (77).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Normal",
+      "image": "known\\norm (8).jpg"
+    },
+    {
+      "max_softmax": 1.0,
+      "ood_score": 0.0,
+      "prediction": "Normal",
+      "image": "known\\norm (9).jpg"
+    },
+    {
+      "max_softmax": 0.8777472972869873,
+      "ood_score": 0.1222527027130127,
+      "prediction": "Acute Otitis Media",
+      "image": "unknown\\1.jpg"
+    },
+    {
+      "max_softmax": 0.3592260479927063,
+      "ood_score": 0.6407739520072937,
+      "prediction": "Normal",
+      "image": "unknown\\1.png"
+    },
+    {
+      "max_softmax": 0.8737767338752747,
+      "ood_score": 0.12622326612472534,
+      "prediction": "Chronic Otitis Media",
+      "image": "unknown\\images (1).jpg"
+    },
+    {
+      "max_softmax": 0.7905237674713135,
+      "ood_score": 0.20947623252868652,
+      "prediction": "Acute Otitis Media",
+      "image": "unknown\\images (10).jpg"
+    },
+    {
+      "max_softmax": 0.9912583231925964,
+      "ood_score": 0.008741676807403564,
+      "prediction": "Acute Otitis Media",
+      "image": "unknown\\images (11).jpg"
+    },
+    {
+      "max_softmax": 0.5836073160171509,
+      "ood_score": 0.4163926839828491,
+      "prediction": "Acute Otitis Media",
+      "image": "unknown\\images (12).jpg"
+    },
+    {
+      "max_softmax": 0.9958117008209229,
+      "ood_score": 0.0041882991790771484,
+      "prediction": "Acute Otitis Media",
+      "image": "unknown\\images (13).jpg"
+    },
+    {
+      "max_softmax": 0.9884385466575623,
+      "ood_score": 0.011561453342437744,
+      "prediction": "Chronic Otitis Media",
+      "image": "unknown\\images (14).jpg"
+    },
+    {
+      "max_softmax": 0.7402076721191406,
+      "ood_score": 0.2597923278808594,
+      "prediction": "Cerumen Impaction",
+      "image": "unknown\\images (15).jpg"
+    },
+    {
+      "max_softmax": 0.9869150519371033,
+      "ood_score": 0.013084948062896729,
+      "prediction": "Chronic Otitis Media",
+      "image": "unknown\\images (16).jpg"
+    },
+    {
+      "max_softmax": 0.7483356595039368,
+      "ood_score": 0.25166434049606323,
+      "prediction": "Acute Otitis Media",
+      "image": "unknown\\images (2).jpg"
+    },
+    {
+      "max_softmax": 0.37355953454971313,
+      "ood_score": 0.6264404654502869,
+      "prediction": "Acute Otitis Media",
+      "image": "unknown\\images (3).jpg"
+    },
+    {
+      "max_softmax": 0.98826003074646,
+      "ood_score": 0.011739969253540039,
+      "prediction": "Cerumen Impaction",
+      "image": "unknown\\images (4).jpg"
+    },
+    {
+      "max_softmax": 0.4182846248149872,
+      "ood_score": 0.5817153751850128,
+      "prediction": "Cerumen Impaction",
+      "image": "unknown\\images (5).jpg"
+    },
+    {
+      "max_softmax": 0.6802104711532593,
+      "ood_score": 0.3197895288467407,
+      "prediction": "Acute Otitis Media",
+      "image": "unknown\\images (6).jpg"
+    },
+    {
+      "max_softmax": 0.9996974468231201,
+      "ood_score": 0.0003025531768798828,
+      "prediction": "Cerumen Impaction",
+      "image": "unknown\\images (7).jpg"
+    },
+    {
+      "max_softmax": 0.7972182035446167,
+      "ood_score": 0.2027817964553833,
+      "prediction": "Cerumen Impaction",
+      "image": "unknown\\images (8).jpg"
+    },
+    {
+      "max_softmax": 0.7679848074913025,
+      "ood_score": 0.2320151925086975,
+      "prediction": "Acute Otitis Media",
+      "image": "unknown\\images (9).jpg"
+    },
+    {
+      "max_softmax": 0.47311607003211975,
+      "ood_score": 0.5268839299678802,
+      "prediction": "Acute Otitis Media",
+      "image": "unknown\\images.jpg"
+    },
+    {
+      "max_softmax": 0.48252958059310913,
+      "ood_score": 0.5174704194068909,
+      "prediction": "Acute Otitis Media",
+      "image": "unknown\\imagesg.jpg"
+    }
+  ]
+}

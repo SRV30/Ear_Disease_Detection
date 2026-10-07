@@ -16,8 +16,7 @@ export default function Footer() {
         <div>
           <h4 className="text-sm font-semibold mb-2">Contact</h4>
           <p className="text-sm text-slate-400">
-            Hall 1<br />
-            IIITDMJ
+            India
           </p>
           <p className="text-sm text-slate-400 mt-1">
             Phone: +91-9182637455<br />
