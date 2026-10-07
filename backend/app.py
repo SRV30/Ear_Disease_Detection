@@ -20,7 +20,7 @@ from routes.auth_route import auth_bp
 app = Flask(__name__)
 
 app.config["MAX_CONTENT_LENGTH"] = MAX_UPLOAD_SIZE
-CORS(app, resources={r"/api/*": {"origins": CORS_ORIGINS}})
+CORS(app, resources={r"/*": {"origins": CORS_ORIGINS}})
 
 limiter = Limiter(
     key_func=get_remote_address,
