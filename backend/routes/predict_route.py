@@ -64,7 +64,7 @@ def predict():
 
         return jsonify({
             "prediction": prediction,
-            "confidence": round(confidence, 2),
+            "confidence": round(confidence, 4),
             "explanation": analysis["explanation"],
             "risk": analysis["risk"],
             "advice": analysis["advice"],
