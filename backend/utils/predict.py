@@ -10,7 +10,7 @@ from torchvision.models import efficientnet_b0
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-from config import CALIBRATION_PATH, CLASS_MAPPING_PATH, IMG_SIZE, MODEL_PATH
+from config import (\n    CALIBRATION_PATH,\n    CLASS_MAPPING_PATH,\n    IMG_SIZE,\n    MODEL_PATH,\n    MODEL_NAME,\n    MODEL_VERSION,\n    MODEL_FRAMEWORK,\n    MODEL_ARCHITECTURE,\n    MODEL_INPUT_SIZE,\n)
 
 
 NUM_CLASSES = 5
