@@ -9,6 +9,7 @@ from PIL import Image, UnidentifiedImageError
 from utils.predict import predict_image, model
 from utils.llm_agent import llm_analysis
 from utils.gradcam import get_gradcam
+from utils.image_quality import check_image_quality
 from database.db import history_collection
 from config import (
     UPLOAD_FOLDER,
@@ -114,9 +115,6 @@ def predict():
 
         logging.info("%s -> %s (%.4f)", user, prediction, confidence)
 
-        # Reject images whose calibrated maximum class probability is below
-        # the empirically selected OOD threshold. Do this before LLM analysis
-        # or Grad-CAM so unsupported images are not presented as diagnoses.
         analysis = llm_analysis(prediction, confidence, symptoms)
 
         heatmap_path = get_gradcam(model, filepath)
