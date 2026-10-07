@@ -10,7 +10,7 @@ from torchvision.models import efficientnet_b0
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-from config import CLASS_MAPPING_PATH, IMG_SIZE, MODEL_PATH
+from config import CALIBRATION_PATH, CLASS_MAPPING_PATH, IMG_SIZE, MODEL_PATH
 
 
 NUM_CLASSES = 5
@@ -43,6 +43,13 @@ class_names = [class_mapping[str(i)] for i in range(NUM_CLASSES)]
 
 model = load_model(MODEL_PATH)
 
+try:
+    with open(CALIBRATION_PATH, "r", encoding="utf-8") as f:
+        calibration = json.load(f)
+    TEMPERATURE = max(float(calibration.get("temperature", 1.0)), 0.05)
+except (FileNotFoundError, ValueError, TypeError, json.JSONDecodeError):
+    TEMPERATURE = 1.0
+
 inference_transform = transforms.Compose([
     transforms.Resize((IMG_SIZE, IMG_SIZE)),
     transforms.ToTensor(),
@@ -59,7 +66,7 @@ def predict_image(img_path):
 
     with torch.inference_mode():
         logits = model(tensor)
-        probs = torch.softmax(logits, dim=1)[0]
+        probs = torch.softmax(logits / TEMPERATURE, dim=1)[0]
 
     predicted_index = int(torch.argmax(probs).item())
     predicted_class = class_names[predicted_index]
