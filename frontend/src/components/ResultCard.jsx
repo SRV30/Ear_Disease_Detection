@@ -1,20 +1,10 @@
-import {
-  Chart as ChartJS, CategoryScale, LinearScale, BarElement,
-  Title, Tooltip, Legend
-} from "chart.js";
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import HeatmapPanel from "./HeatmapPanel";
-
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const CLASS_NAMES = ["Acute Otitis Media", "Cerumen Impaction", "Chronic Otitis Media", "Myringosclerosis", "Normal"];
-
-const riskStyles = {
-  Low: "bg-emerald-50 text-emerald-700 border-emerald-200",
-  Medium: "bg-amber-50 text-amber-700 border-amber-200",
-  High: "bg-red-50 text-red-700 border-red-200",
-  Uncertain: "bg-slate-100 text-slate-700 border-slate-200",
-};
+const riskStyles = { Low: "bg-emerald-50 text-emerald-700 border-emerald-200", Medium: "bg-amber-50 text-amber-700 border-amber-200", High: "bg-red-50 text-red-700 border-red-200", Uncertain: "bg-slate-100 text-slate-700 border-slate-200" };
 
 export default function ResultCard({ result }) {
   const confidence = Number(result.confidence);
@@ -22,67 +12,16 @@ export default function ResultCard({ result }) {
   const values = CLASS_NAMES.map((_, i) => Number.isFinite(Number(probabilities[i])) ? Number(probabilities[i]) * 100 : 0);
   const predictedIndex = CLASS_NAMES.indexOf(result.prediction);
   const riskClass = riskStyles[result.risk] || riskStyles.Uncertain;
+  const chartData = { labels: CLASS_NAMES, datasets: [{ label: "Probability", data: values, borderWidth: 0, borderRadius: 8 }] };
+  const chartOptions = { responsive: true, maintainAspectRatio: false, indexAxis: "y", scales: { x: { beginAtZero: true, max: 100, grid: { color: "rgba(148,163,184,.15)" }, ticks: { callback: (v) => `${v}%` } }, y: { grid: { display: false } } }, plugins: { legend: { display: false }, tooltip: { callbacks: { label: (ctx) => `${Number(ctx.raw).toFixed(2)}%` } } } };
 
-  const chartData = {
-    labels: CLASS_NAMES,
-    datasets: [{ label: "Probability", data: values, borderWidth: 0, borderRadius: 8 }],
-  };
-
-  const chartOptions = {
-    responsive: true, maintainAspectRatio: false, indexAxis: "y",
-    scales: { x: { beginAtZero: true, max: 100, grid: { color: "rgba(148,163,184,.15)" }, ticks: { callback: (v) => `${v}%` } }, y: { grid: { display: false } } },
-    plugins: { legend: { display: false }, tooltip: { callbacks: { label: (ctx) => `${Number(ctx.raw).toFixed(2)}%` } } },
-  };
-
-  return (
-    <div className="space-y-6">
-      <section className="rounded-3xl bg-white border border-slate-200 shadow-xl shadow-slate-900/5 overflow-hidden">
-        <div className="p-6 md:p-8">
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-widest text-indigo-600">Primary finding</p>
-              <h2 className="mt-2 text-3xl md:text-4xl font-black text-slate-900">{result.prediction}</h2>
-              <p className="mt-2 text-sm text-slate-500">Predicted from the uploaded otoscopic image.</p>
-            </div>
-            <div className="flex flex-wrap gap-3">
-              <div className="rounded-2xl bg-indigo-50 border border-indigo-100 px-5 py-4 min-w-[150px]">
-                <p className="text-xs font-semibold text-indigo-600">Model confidence</p>
-                <p className="mt-1 text-2xl font-black text-indigo-900">{Number.isFinite(confidence) ? `${confidence.toFixed(2)}%` : "N/A"}</p>
-              </div>
-              <div className={`rounded-2xl border px-5 py-4 min-w-[130px] ${riskClass}`}>
-                <p className="text-xs font-semibold">Risk level</p>
-                <p className="mt-1 text-2xl font-black">{result.risk || "Uncertain"}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="grid md:grid-cols-3 border-t border-slate-100">
-          <div className="p-5 md:p-6"><p className="text-xs font-bold uppercase tracking-wider text-slate-400">What it means</p><p className="mt-2 text-sm leading-6 text-slate-600">{result.explanation}</p></div>
-          <div className="p-5 md:p-6 border-t md:border-t-0 md:border-l border-slate-100"><p className="text-xs font-bold uppercase tracking-wider text-slate-400">Recommended next step</p><p className="mt-2 text-sm leading-6 text-slate-600">{result.advice}</p></div>
-          <div className="p-5 md:p-6 border-t md:border-t-0 md:border-l border-slate-100"><p className="text-xs font-bold uppercase tracking-wider text-slate-400">Confidence context</p><p className="mt-2 text-sm leading-6 text-slate-600">{result.extra || "Confidence reflects the model output and should not be interpreted as clinical certainty."}</p></div>
-        </div>
-      </section>
-
-      {probabilities.length === CLASS_NAMES.length && (
-        <section className="rounded-3xl bg-white border border-slate-200 shadow-lg p-6 md:p-8">
-          <div className="mb-5"><p className="text-xs font-bold uppercase tracking-widest text-indigo-600">Model output</p><h3 className="mt-1 text-xl font-bold text-slate-900">How the model compared the five classes</h3><p className="mt-1 text-sm text-slate-500">The predicted class is the highest probability among the supported classes.</p></div>
-          <div className="h-72"><Bar data={chartData} options={chartOptions} /></div>
-          <div className="mt-5 grid sm:grid-cols-2 lg:grid-cols-5 gap-3">
-            {CLASS_NAMES.map((name, index) => <div key={name} className={`rounded-2xl border p-3 ${index === predictedIndex ? "border-indigo-200 bg-indigo-50" : "border-slate-100 bg-slate-50"}`}><div className="flex items-center justify-between gap-2"><span className="text-xs font-semibold text-slate-600">{name}</span>{index === predictedIndex && <span className="text-[10px] font-bold text-indigo-600">TOP</span>}</div><p className="mt-2 text-lg font-black text-slate-900">{values[index].toFixed(2)}%</p></div>)}
-          </div>
-        </section>
-      )}
-
-      {result.heatmap_url && (
-        <section className="rounded-3xl bg-white border border-slate-200 shadow-lg p-6 md:p-8">
-          <div className="mb-5"><p className="text-xs font-bold uppercase tracking-widest text-indigo-600">Explainable AI</p><h3 className="mt-1 text-xl font-bold text-slate-900">Where the model focused</h3><p className="mt-1 text-sm leading-6 text-slate-500">Grad-CAM highlights image regions that contributed to the prediction. It is an interpretability aid, not a clinically validated lesion map.</p></div>
-          <HeatmapPanel imageUrl={result.image_url} heatmapUrl={result.heatmap_url} />
-        </section>
-      )}
-
-      <section className="rounded-3xl border border-amber-200 bg-amber-50 p-5 md:p-6">
-        <div className="flex gap-3"><div className="shrink-0 h-9 w-9 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center font-bold">!</div><div><h3 className="font-bold text-amber-900">Important medical note</h3><p className="mt-1 text-sm leading-6 text-amber-800">This AI result is intended for academic/research decision support. It does not establish a medical diagnosis. If you have persistent pain, discharge, fever, hearing changes, or other concerning symptoms, consult a qualified healthcare professional.</p></div></div>
-      </section>
-    </div>
-  );
+  return <div className="space-y-6">
+    <section className="rounded-3xl bg-white border border-slate-200 shadow-xl shadow-slate-900/5 overflow-hidden">
+      <div className="p-6 md:p-8"><div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6"><div><p className="text-xs font-bold uppercase tracking-widest text-indigo-600">Primary finding</p><h2 className="mt-2 text-3xl md:text-4xl font-black text-slate-900">{result.prediction}</h2><p className="mt-2 text-sm text-slate-500">Predicted from the uploaded otoscopic image.</p></div><div className="flex flex-wrap gap-3"><div className="rounded-2xl bg-indigo-50 border border-indigo-100 px-5 py-4 min-w-[150px]"><p className="text-xs font-semibold text-indigo-600">Confidence</p><p className="mt-1 text-2xl font-black text-indigo-900">{Number.isFinite(confidence) ? `${confidence.toFixed(2)}%` : "N/A"}</p></div><div className={`rounded-2xl border px-5 py-4 min-w-[130px] ${riskClass}`}><p className="text-xs font-semibold">Risk level</p><p className="mt-1 text-2xl font-black">{result.risk || "Uncertain"}</p></div></div></div></div>
+      <div className="grid md:grid-cols-3 border-t border-slate-100"><div className="p-5 md:p-6"><p className="text-xs font-bold uppercase tracking-wider text-slate-400">What it means</p><p className="mt-2 text-sm leading-6 text-slate-600">{result.explanation}</p></div><div className="p-5 md:p-6 border-t md:border-t-0 md:border-l border-slate-100"><p className="text-xs font-bold uppercase tracking-wider text-slate-400">Recommended next step</p><p className="mt-2 text-sm leading-6 text-slate-600">{result.advice}</p></div><div className="p-5 md:p-6 border-t md:border-t-0 md:border-l border-slate-100"><p className="text-xs font-bold uppercase tracking-wider text-slate-400">Confidence context</p><p className="mt-2 text-sm leading-6 text-slate-600">{result.extra || "Confidence reflects the model output and should not be interpreted as clinical certainty."}</p></div></div>
+    </section>
+    {probabilities.length === CLASS_NAMES.length && <section className="rounded-3xl bg-white border border-slate-200 shadow-lg p-6 md:p-8"><div className="mb-5"><p className="text-xs font-bold uppercase tracking-widest text-indigo-600">Model output</p><h3 className="mt-1 text-xl font-bold text-slate-900">Comparison across supported classes</h3><p className="mt-1 text-sm text-slate-500">The predicted class has the highest probability among the five supported classes.</p></div><div className="h-72"><Bar data={chartData} options={chartOptions} /></div><div className="mt-5 grid sm:grid-cols-2 lg:grid-cols-5 gap-3">{CLASS_NAMES.map((name, index) => <div key={name} className={`rounded-2xl border p-3 ${index === predictedIndex ? "border-indigo-200 bg-indigo-50" : "border-slate-100 bg-slate-50"}`}><div className="flex items-center justify-between gap-2"><span className="text-xs font-semibold text-slate-600">{name}</span>{index === predictedIndex && <span className="text-[10px] font-bold text-indigo-600">TOP</span>}</div><p className="mt-2 text-lg font-black text-slate-900">{values[index].toFixed(2)}%</p></div>)}</div></section>}
+    {result.heatmap_url && <section className="rounded-3xl bg-white border border-slate-200 shadow-lg p-6 md:p-8"><div className="mb-5"><p className="text-xs font-bold uppercase tracking-widest text-indigo-600">Visual explanation</p><h3 className="mt-1 text-xl font-bold text-slate-900">Where the model focused</h3><p className="mt-1 text-sm leading-6 text-slate-500">Grad-CAM highlights image regions that contributed to the prediction. It is an interpretability aid, not a clinically validated lesion map.</p></div><HeatmapPanel imageUrl={result.image_url} heatmapUrl={result.heatmap_url} /></section>}
+    <section className="rounded-3xl border border-amber-200 bg-amber-50 p-5 md:p-6"><div className="flex gap-3"><div className="shrink-0 h-9 w-9 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center font-bold">!</div><div><h3 className="font-bold text-amber-900">Important medical note</h3><p className="mt-1 text-sm leading-6 text-amber-800">This result is intended for academic/research decision support. It does not establish a medical diagnosis. If you have persistent pain, discharge, fever, hearing changes, or other concerning symptoms, consult a qualified healthcare professional.</p></div></div></section>
+  </div>;
 }
