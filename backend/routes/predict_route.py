@@ -109,6 +109,15 @@ def predict():
         filepath = os.path.join(UPLOAD_FOLDER, filename)
         file.save(filepath)
 
+        quality_ok, quality_message = check_image_quality(filepath)
+        if not quality_ok:
+            os.remove(filepath)
+            filepath = None
+            return jsonify({
+                "error": "Image quality too low",
+                "message": quality_message,
+            }), 400
+
         symptoms = request.form.get("symptoms", "")
 
         prediction, confidence, probs = predict_image(filepath)
