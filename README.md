@@ -91,6 +91,146 @@ Training used image augmentation including horizontal flipping, rotation, and co
 
 ---
 
+## Model Comparison
+
+Four pretrained CNN architectures were trained and evaluated using the same leakage-safe dataset and evaluation protocol. The report identifies EfficientNet-B0 as the deployment choice because it achieved the same perfect test accuracy as MobileNetV3-Large and DenseNet121 while being the smallest and fastest model among the four candidates. fileciteturn263file0L115-L132
+
+| Model | Parameters | Model Size | Test Accuracy | Throughput | Latency / Image |
+|---|---:|---:|---:|---:|---:|
+| ResNet18 | 11,179,077 | 42.72 MB | 99.78% | 164.67 img/s | 6.07 ms |
+| MobileNetV3-Large | 4,208,437 | 16.26 MB | 100.00% | 184.06 img/s | 5.43 ms |
+| **EfficientNet-B0** | **4,013,953** | **15.61 MB** | **100.00%** | **207.06 img/s** | **4.83 ms** |
+| DenseNet121 | 6,958,981 | 27.14 MB | 100.00% | 169.80 img/s | 5.89 ms |
+
+The measured efficiency results come from the project benchmark: EfficientNet-B0 had the fewest parameters, smallest model file, highest throughput, and lowest latency. Therefore, its selection was based on the overall deployment trade-off rather than accuracy alone. fileciteturn263file0L171-L181
+
+### ResNet18
+
+ResNet18 was used as a strong baseline. It achieved **99.78%** test accuracy, with one recorded Myringosclerosis image classified as Normal. fileciteturn263file0L141-L148
+
+### MobileNetV3-Large
+
+MobileNetV3-Large is a lightweight architecture designed for efficient inference. It achieved **100.00%** accuracy on all 445 test images while using only 4.21 million parameters. fileciteturn263file0L141-L151
+
+### EfficientNet-B0
+
+EfficientNet-B0 provided the best deployment-oriented balance in the comparison. It achieved **100.00%** test accuracy with 4.01 million parameters, a 15.61 MB model, and 4.83 ms measured latency per image. fileciteturn263file0L152-L154
+
+### DenseNet121
+
+DenseNet121 also achieved **100.00%** test accuracy and perfect class-wise precision, recall, and F1-score, but it was larger and slower than EfficientNet-B0. fileciteturn263file0L155-L157
+
+---
+
+## Data Leakage Investigation
+
+A major part of the project was identifying and correcting near-duplicate leakage.
+
+An initial conventional stratified 70/15/15 split showed suspicious visual overlap: **185 of 439 test images (42.14%)** had a pHash match in the training set at the selected threshold. A perceptual-hash grouping and union-find procedure was then used to keep visually similar images within the same split. The final leakage-safe split had zero group overlap between training, validation, and testing. fileciteturn263file0L66-L89
+
+| Leakage Audit | Result |
+|---|---:|
+| Images analyzed | 2,922 |
+| pHash grouping threshold | ≤ 4 |
+| Total groups | 1,924 |
+| Near-duplicate groups | 509 |
+| Largest group | 10 images |
+| Cross-class near-duplicate groups | 0 |
+
+This is important because the final reported model results are based on the leakage-safe split rather than the original conventional random split. fileciteturn263file0L72-L89
+
+---
+
+## Robustness Evaluation
+
+A mild robustness dataset was generated from the leakage-safe test set using small rotations and brightness/contrast changes. EfficientNet-B0 achieved **100.00% accuracy** under those recorded perturbations. This is evidence of stability for the tested transformations, but it does not establish robustness to arbitrary blur, noise, illumination changes, cropping, compression, camera differences, or other domain shifts. fileciteturn263file0L205-L212
+
+---
+
+## Prediction Confidence Analysis
+
+Before calibration, EfficientNet-B0 produced extremely high softmax confidence on the internal test distribution:
+
+| Statistic | Confidence |
+|---|---:|
+| Minimum | 0.9967932 |
+| Mean | 0.99992484 |
+| Median | 0.9999796 |
+| Maximum | 1.0 |
+
+No test image had confidence below 0.99. However, the project explicitly treats these values as model confidence rather than clinical certainty. External tests demonstrated that high confidence can still occur under domain shift. fileciteturn263file0L186-L199
+
+---
+
+## External Image Sanity Checks
+
+The selected EfficientNet-B0 model was also manually tested on independently sourced images outside the training and formal test sets. These checks were qualitative sanity tests, not a clinical benchmark. fileciteturn263file0L235-L250
+
+Recorded examples included:
+
+| External Image | Model Output | Observation |
+|---|---|---|
+| User-labeled Acute Otitis Media | Acute Otitis Media, 99.95% | Correct qualitative result |
+| User-labeled Myringosclerosis | Chronic Otitis Media, 47.23% | Incorrect / uncertain |
+| Another user-labeled Myringosclerosis | Normal, 57.79% | Incorrect / uncertain |
+| User-labeled Acute Otitis Media | Acute Otitis Media | Correct qualitative result |
+| Chair image | Chronic Otitis Media, 72.48% | Clear out-of-distribution failure |
+
+These observations demonstrate why the internal 100% test accuracy must not be presented as universal or clinical generalization. The report specifically highlights Myringosclerosis as an area requiring additional independent data. fileciteturn263file0L243-L250
+
+---
+
+## Experimental Workflow
+
+The complete experimental workflow included:
+
+1. Dataset inspection
+2. Exact duplicate removal
+3. Perceptual near-duplicate analysis
+4. Group-aware leakage prevention
+5. Consistent preprocessing and augmentation
+6. Multi-model transfer learning
+7. Validation-loss checkpoint selection
+8. Model comparison
+9. Accuracy, precision, recall, F1 and confusion-matrix evaluation
+10. Model size and inference-speed benchmarking
+11. Prediction confidence analysis
+12. Mild perturbation robustness testing
+13. Grad-CAM visualization
+14. Quantitative Grad-CAM faithfulness evaluation
+15. Confidence calibration
+16. External-image sanity checks
+17. Model packaging and web deployment
+
+The report describes this as a complete five-class deep-learning pipeline and emphasizes the distinction between the original random split and the final leakage-safe evaluation. fileciteturn263file0L314-L327
+
+---
+
+## Reproducibility and Saved Artifacts
+
+The final inference package contains:
+
+```text
+models/
+├── efficientnet_b0_ear_disease.pth
+├── class_mapping.json
+└── temperature_scaling.json
+```
+
+The class mapping is:
+
+```text
+0 → Acute Otitis Media
+1 → Cerumen Impaction
+2 → Chronic Otitis Media
+3 → Myringosclerosis
+4 → Normal
+```
+
+The selected checkpoint and class mapping are documented in the project report, while the current application additionally stores the fitted temperature-scaling parameters for calibrated inference. fileciteturn263file0L255-L267
+
+---
+
 ## Dataset
 
 The project started with **3,000 original images**.
