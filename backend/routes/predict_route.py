@@ -15,7 +15,6 @@ from config import (
     ALLOWED_EXTENSIONS,
     ALLOWED_MIME_TYPES,
     MAX_IMAGE_PIXELS,
-    OOD_CONFIDENCE_THRESHOLD,
 )
 from extensions import limiter
 
@@ -118,32 +117,6 @@ def predict():
         # Reject images whose calibrated maximum class probability is below
         # the empirically selected OOD threshold. Do this before LLM analysis
         # or Grad-CAM so unsupported images are not presented as diagnoses.
-        if confidence / 100.0 < OOD_CONFIDENCE_THRESHOLD:
-            # OOD results are intentionally not persisted in patient history.
-            # The uploaded file is also removed because it is not associated
-            # with a history record and therefore should not remain in storage.
-            response = {
-                "prediction": "Unknown / Unsupported Image",
-                "confidence": round(confidence, 4),
-                "explanation": "The uploaded image is not sufficiently similar to the supported otoscopic ear-image classes.",
-                "risk": "Unsupported image",
-                "advice": "Please upload a clear otoscopic image of the ear belonging to one of the supported classes.",
-                "extra": "This image was rejected by the model's unknown-image screening step and should not be interpreted as a diagnosis.",
-                "probabilities": probs,
-                "image_url": None,
-                "heatmap_url": None,
-                "ood_rejected": True,
-            }
-
-            if filepath and os.path.exists(filepath):
-                try:
-                    os.remove(filepath)
-                except OSError:
-                    logging.warning("Could not remove rejected OOD image: %s", filepath)
-
-            filepath = None
-            return jsonify(response), 200
-
         analysis = llm_analysis(prediction, confidence, symptoms)
 
         heatmap_path = get_gradcam(model, filepath)
