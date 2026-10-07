@@ -16,6 +16,7 @@ from routes.predict_route import predict_bp
 from routes.history_route import history_bp
 from routes.auth_route import auth_bp
 from routes.report_route import report_bp
+from routes.info_route import info_bp
 
 app = Flask(__name__)
 
@@ -47,6 +48,7 @@ app.register_blueprint(predict_bp)
 app.register_blueprint(history_bp)
 app.register_blueprint(auth_bp)
 app.register_blueprint(report_bp)
+app.register_blueprint(info_bp)
 
 @app.route("/")
 def home():
