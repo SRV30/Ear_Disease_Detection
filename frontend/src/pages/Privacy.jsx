@@ -1,5 +1,55 @@
+function DeleteHistory() {
+  const [deleting, setDeleting] = useState(false);
+  const [message, setMessage] = useState("");
+
+  const handleDeleteHistory = async () => {
+    if (!window.confirm("Delete all of your diagnosis history and uploaded images?")) {
+      return;
+    }
+
+    try {
+      setDeleting(true);
+      setMessage("");
+      const response = await api.delete("/history");
+      setMessage(
+        String(response.data.deleted_count || 0) +
+          " history item(s) deleted successfully."
+      );
+    } catch (error) {
+      setMessage(
+        error.response?.data?.error ||
+          "Could not delete your history. Please try again."
+      );
+    } finally {
+      setDeleting(false);
+    }
+  };
+
+  return (
+    <div className="mt-6 rounded-2xl border border-red-200 bg-red-50 p-5">
+      <h3 className="text-lg font-semibold text-red-800">
+        Delete Your Diagnosis History
+      </h3>
+      <p className="mt-1 text-sm text-red-700">
+        This permanently deletes your saved diagnosis history and associated
+        uploaded images from the application.
+      </p>
+      <button
+        onClick={handleDeleteHistory}
+        disabled={deleting}
+        className="mt-4 rounded-xl bg-red-600 px-4 py-2 text-sm font-semibold text-white hover:bg-red-700 disabled:opacity-60"
+      >
+        {deleting ? "Deleting..." : "Delete All History"}
+      </button>
+      {message && <p className="mt-3 text-sm text-red-700">{message}</p>}
+    </div>
+  );
+}
+
 // src/pages/Privacy.jsx
+import { useState } from "react";
 import { Helmet } from "react-helmet";
+import api from "../services/api";
 
 export default function Privacy() {
   return (
@@ -31,6 +81,10 @@ export default function Privacy() {
           processing. We do not sell or share your images with any third
           parties.
         </p>
+        {localStorage.getItem("access_token") && (
+          <DeleteHistory />
+        )}
+
         <h3 className="text-lg font-semibold text-slate-900 mt-4">
           2. No Medical Replacement
         </h3>
