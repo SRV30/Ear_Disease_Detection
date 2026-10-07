@@ -121,6 +121,14 @@ def main():
         y_true, y_pred, average="weighted", zero_division=0
     )
 
+    report_text = classification_report(
+        y_true,
+        y_pred,
+        target_names=CLASS_NAMES,
+        digits=4,
+        zero_division=0,
+    )
+
     report = classification_report(
         y_true,
         y_pred,
@@ -151,6 +159,13 @@ def main():
         encoding="utf-8",
     ) as file:
         json.dump(results, file, indent=2)
+
+    with open(
+        os.path.join(args.output_dir, "classification_report.txt"),
+        "w",
+        encoding="utf-8",
+    ) as file:
+        file.write(report_text)
 
     fig, ax = plt.subplots(figsize=(8, 7))
     image = ax.imshow(cm)
@@ -194,6 +209,8 @@ def main():
     print(f"Macro recall: {macro_recall:.6f}")
     print(f"Macro F1: {macro_f1:.6f}")
     print(f"Weighted F1: {weighted_f1:.6f}")
+    print("\nClassification report:")
+    print(report_text)
     print(f"Results saved to: {args.output_dir}")
 
 
