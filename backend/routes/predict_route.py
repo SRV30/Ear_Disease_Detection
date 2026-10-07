@@ -119,21 +119,30 @@ def predict():
         # the empirically selected OOD threshold. Do this before LLM analysis
         # or Grad-CAM so unsupported images are not presented as diagnoses.
         if confidence / 100.0 < OOD_CONFIDENCE_THRESHOLD:
-            data = {
-                "user": user,
+            # OOD results are intentionally not persisted in patient history.
+            # The uploaded file is also removed because it is not associated
+            # with a history record and therefore should not remain in storage.
+            response = {
                 "prediction": "Unknown / Unsupported Image",
-                "confidence": confidence,
+                "confidence": round(confidence, 4),
                 "explanation": "The uploaded image is not sufficiently similar to the supported otoscopic ear-image classes.",
                 "risk": "Unsupported image",
                 "advice": "Please upload a clear otoscopic image of the ear belonging to one of the supported classes.",
                 "extra": "This image was rejected by the model's unknown-image screening step and should not be interpreted as a diagnosis.",
                 "probabilities": probs,
-                "image_url": f"/media/{filename}",
+                "image_url": None,
                 "heatmap_url": None,
                 "ood_rejected": True,
             }
-            history_collection.insert_one(data)
-            return jsonify({key: value for key, value in data.items() if key != "user"}), 200
+
+            if filepath and os.path.exists(filepath):
+                try:
+                    os.remove(filepath)
+                except OSError:
+                    logging.warning("Could not remove rejected OOD image: %s", filepath)
+
+            filepath = None
+            return jsonify(response), 200
 
         analysis = llm_analysis(prediction, confidence, symptoms)
 
