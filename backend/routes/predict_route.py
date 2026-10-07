@@ -139,6 +139,31 @@ def predict():
                 "image_url": f"/media/{filename}",
                 "heatmap_url": None,
                 "ood_rejected": True,
+            }
+            history_collection.insert_one({
+                "user": user,
+                "prediction": "Unknown / Unsupported Image",
+                "confidence": confidence,
+                "explanation": "Image rejected by OOD screening.",
+                "risk": "Unsupported image",
+                "advice": "Upload a clear supported otoscopic ear image.",
+                "extra": "OOD screening rejected this image before diagnosis.",
+                "probabilities": probs,
+                "image_url": f"/media/{filename}",
+                "heatmap_url": None,
+                "ood_rejected": True,
+            })
+            return jsonify({
+                "prediction": "Unknown / Unsupported Image",
+                "confidence": round(confidence, 4),
+                "explanation": "The uploaded image is not sufficiently similar to the supported otoscopic ear-image classes.",
+                "risk": "Unsupported image",
+                "advice": "Please upload a clear otoscopic image of the ear belonging to one of the supported classes.",
+                "extra": "This image was rejected by the model's unknown-image screening step and should not be interpreted as a diagnosis.",
+                "probabilities": probs,
+                "image_url": f"/media/{filename}",
+                "heatmap_url": None,
+                "ood_rejected": True,
             }), 200
 
         analysis = llm_analysis(prediction, confidence, symptoms)
