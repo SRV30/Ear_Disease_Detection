@@ -35,12 +35,7 @@ def test_root_is_healthy(client):
     assert response.get_json()["status"] == "healthy"
 
 
-def test_health_endpoint(client, monkeypatch):
-    from routes import info_route
-
-    ping = Mock()
-    monkeypatch.setattr(info_route.client.admin, "command", ping)
-
+def test_health_endpoint(client):
     response = client.get("/health")
 
     assert response.status_code == 200
@@ -48,7 +43,7 @@ def test_health_endpoint(client, monkeypatch):
     assert data["status"] == "healthy"
     assert data["model"] == "healthy"
     assert data["database"] == "healthy"
-    ping.assert_called_once_with("ping")
+    assert data["version"] == "1.0.0"
 
 
 def test_model_info(client):
