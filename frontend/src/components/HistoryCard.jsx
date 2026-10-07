@@ -1,6 +1,54 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import api from "../services/api";
 
-export default function HistoryCard({ history, backendURL }) {
+function ProtectedThumbnail({ url }) {
+  const [objectUrl, setObjectUrl] = useState("");
+
+  useEffect(() => {
+    let active = true;
+    let createdUrl = "";
+
+    const load = async () => {
+      try {
+        const response = await api.get(url, { responseType: "blob" });
+        createdUrl = URL.createObjectURL(response.data);
+        if (active) {
+          setObjectUrl(createdUrl);
+        } else {
+          URL.revokeObjectURL(createdUrl);
+        }
+      } catch {
+        if (active) setObjectUrl("");
+      }
+    };
+
+    load();
+
+    return () => {
+      active = false;
+      if (createdUrl) URL.revokeObjectURL(createdUrl);
+    };
+  }, [url]);
+
+  if (!objectUrl) {
+    return (
+      <div className="w-14 h-14 rounded bg-gray-100 border flex items-center justify-center text-[10px] text-gray-400">
+        Image
+      </div>
+    );
+  }
+
+  return (
+    <img
+      src={objectUrl}
+      alt="Diagnosis"
+      className="w-14 h-14 rounded object-cover"
+    />
+  );
+}
+
+export default function HistoryCard({ history }) {
   const navigate = useNavigate();
 
   return (
@@ -18,18 +66,15 @@ export default function HistoryCard({ history, backendURL }) {
 
         return (
           <div
-            key={item._id || `${item.image_url}-${item.prediction}-${idx}`}
+            key={item.id || String(item.image_url) + "-" + String(item.prediction) + "-" + idx}
             className="flex items-center gap-4 border p-3 rounded-lg mb-2"
           >
-            <img
-              src={`${backendURL}${item.image_url}`}
-              className="w-14 h-14 rounded"
-            />
+            <ProtectedThumbnail url={item.image_url} />
 
             <div className="flex-1">
               <p>
                 {item.prediction}
-                <span className={`ml-2 px-2 text-white ${color}`}>
+                <span className={"ml-2 px-2 text-white " + color}>
                   {item.confidence}%
                 </span>
               </p>
