@@ -1,11 +1,10 @@
 from flask import Flask, send_from_directory, jsonify
 from flask_cors import CORS
-from flask_limiter import Limiter
-from flask_limiter.util import get_remote_address
 import os
 import logging
 from flask_jwt_extended import JWTManager
 from database.db import blacklist_collection
+from extensions import limiter
 from config import (
     UPLOAD_FOLDER,
     JWT_SECRET_KEY,
@@ -22,11 +21,7 @@ app = Flask(__name__)
 app.config["MAX_CONTENT_LENGTH"] = MAX_UPLOAD_SIZE
 CORS(app, resources={r"/*": {"origins": CORS_ORIGINS}})
 
-limiter = Limiter(
-    key_func=get_remote_address,
-    storage_uri=RATE_LIMIT_STORAGE_URI,
-    default_limits=[],
-)
+limiter._storage_uri = RATE_LIMIT_STORAGE_URI
 limiter.init_app(app)
 
 app.config["JWT_SECRET_KEY"] = JWT_SECRET_KEY
