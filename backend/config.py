@@ -15,6 +15,9 @@ MAX_UPLOAD_SIZE = 50 * 1024 * 1024
 MAX_IMAGE_PIXELS = 25_000_000
 CALIBRATION_PATH = os.path.join(BASE_DIR, "../models/temperature_scaling.json")
 
+# OOD rejection threshold selected from the current known/unknown evaluation set.
+OOD_CONFIDENCE_THRESHOLD = 0.9998
+
 load_dotenv()
 
 MONGO_URI = os.getenv("MONGO_URI")
