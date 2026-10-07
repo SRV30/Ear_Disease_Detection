@@ -15,6 +15,7 @@ from config import (
     ALLOWED_EXTENSIONS,
     ALLOWED_MIME_TYPES,
     MAX_IMAGE_PIXELS,
+    OOD_CONFIDENCE_THRESHOLD,
 )
 from extensions import limiter
 
@@ -113,6 +114,32 @@ def predict():
         prediction, confidence, probs = predict_image(filepath)
 
         logging.info("%s -> %s (%.4f)", user, prediction, confidence)
+
+        # Reject images whose calibrated maximum class probability is below
+        # the empirically selected OOD threshold. Do this before LLM analysis
+        # or Grad-CAM so unsupported images are not presented as diagnoses.
+        if confidence / 100.0 < OOD_CONFIDENCE_THRESHOLD:
+            return jsonify({
+                "prediction": "Unknown / Unsupported Image",
+                "confidence": round(confidence, 4),
+                "explanation": (
+                    "The uploaded image is not sufficiently similar to the "
+                    "supported otoscopic ear-image classes."
+                ),
+                "risk": "Unsupported image",
+                "advice": (
+                    "Please upload a clear otoscopic image of the ear "
+                    "belonging to one of the supported classes."
+                ),
+                "extra": (
+                    "This image was rejected by the model's unknown-image "
+                    "screening step and should not be interpreted as a diagnosis."
+                ),
+                "probabilities": probs,
+                "image_url": f"/media/{filename}",
+                "heatmap_url": None,
+                "ood_rejected": True,
+            }), 200
 
         analysis = llm_analysis(prediction, confidence, symptoms)
 
