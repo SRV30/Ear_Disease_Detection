@@ -41,6 +41,7 @@ def get_history():
 
     for record in records:
         record["id"] = str(record.pop("_id"))
+        record["created_at"] = ObjectId(record["id"]).generation_time.isoformat()
 
     return jsonify(records)
 
