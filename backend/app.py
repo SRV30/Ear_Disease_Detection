@@ -1,18 +1,33 @@
-from flask import Flask, send_from_directory
+from flask import Flask, send_from_directory, jsonify
 from flask_cors import CORS
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 import os
 import logging
 from flask_jwt_extended import JWTManager
 from database.db import blacklist_collection
-
-from config import UPLOAD_FOLDER, JWT_SECRET_KEY
+from config import (
+    UPLOAD_FOLDER,
+    JWT_SECRET_KEY,
+    MAX_UPLOAD_SIZE,
+    CORS_ORIGINS,
+    RATE_LIMIT_STORAGE_URI,
+)
 from routes.predict_route import predict_bp
 from routes.history_route import history_bp
 from routes.auth_route import auth_bp
 
 app = Flask(__name__)
 
-CORS(app)
+app.config["MAX_CONTENT_LENGTH"] = MAX_UPLOAD_SIZE
+CORS(app, resources={r"/api/*": {"origins": CORS_ORIGINS}})
+
+limiter = Limiter(
+    key_func=get_remote_address,
+    storage_uri=RATE_LIMIT_STORAGE_URI,
+    default_limits=[],
+)
+limiter.init_app(app)
 
 app.config["JWT_SECRET_KEY"] = JWT_SECRET_KEY
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = 900
@@ -45,11 +60,26 @@ def home():
 
 @app.route("/uploads/<filename>")
 def uploaded_file(filename):
-    return send_from_directory(UPLOAD_FOLDER, filename)
+    # Uploads are intentionally not served through this legacy route.
+    return jsonify({"error": "Use an authenticated media endpoint"}), 403
+
+@app.errorhandler(413)
+def request_too_large(e):
+    return jsonify({
+        "error": "File too large",
+        "message": "Maximum upload size is 50 MB."
+    }), 413
 
 @app.errorhandler(404)
 def not_found(e):
     return {"error": "Route not found"}, 404
+
+@app.errorhandler(429)
+def rate_limited(e):
+    return jsonify({
+        "error": "Too many requests",
+        "message": "Please try again later."
+    }), 429
 
 @app.errorhandler(500)
 def server_error(e):
