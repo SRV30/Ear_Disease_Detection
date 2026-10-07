@@ -74,7 +74,12 @@ export const handle401WithRefresh = async (error, api) => {
 
 export const logoutSession = async (api) => {
   try {
-    await api.post('/logout', null, { _skipAuthRefresh: true });
+    const refreshToken = localStorage.getItem('refresh_token');
+    await api.post(
+      '/logout',
+      { refresh_token: refreshToken },
+      { _skipAuthRefresh: true }
+    );
   } catch {
     // ignore network/logout failures and clear local session anyway
   } finally {
