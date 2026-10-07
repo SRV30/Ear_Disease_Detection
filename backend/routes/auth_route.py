@@ -7,13 +7,11 @@ from flask_jwt_extended import (
     get_jwt,
     decode_token,
 )
-from flask_limiter import Limiter
-from flask_limiter.util import get_remote_address
+from extensions import limiter
 import bcrypt
 from database.db import users_collection, blacklist_collection
 
 auth_bp = Blueprint("auth", __name__)
-limiter = Limiter(key_func=get_remote_address)
 
 @auth_bp.route("/signup", methods=["POST"])
 @limiter.limit("5 per minute")
