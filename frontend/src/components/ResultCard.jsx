@@ -32,6 +32,7 @@ export default function ResultCard({ result, pdfRef }) {
   const getRiskColor = (risk) => {
     if (risk === "High") return "bg-red-500";
     if (risk === "Medium") return "bg-yellow-500";
+    if (risk === "Unsupported image") return "bg-orange-500";
     return "bg-green-500";
   };
 
@@ -173,10 +174,12 @@ export default function ResultCard({ result, pdfRef }) {
         </div>
       )}
 
-      <HeatmapPanel
-        imageUrl={result.image_url}
-        heatmapUrl={result.heatmap_url}
-      />
+      {result.heatmap_url && (
+        <HeatmapPanel
+          imageUrl={result.image_url}
+          heatmapUrl={result.heatmap_url}
+        />
+      )}
 
       {result.extra && (
         <div>
