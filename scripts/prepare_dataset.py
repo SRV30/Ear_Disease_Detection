@@ -55,9 +55,25 @@ def collect_images(raw_dir):
     images = []
 
     for class_name in CLASSES:
-        class_dir = os.path.join(raw_dir, class_name)
-        if not os.path.isdir(class_dir):
-            raise FileNotFoundError(f"Missing class directory: {class_dir}")
+        folder_candidates = [
+            class_name,
+            class_name.replace(" ", "_"),
+        ]
+
+        class_dir = next(
+            (
+                os.path.join(raw_dir, folder_name)
+                for folder_name in folder_candidates
+                if os.path.isdir(os.path.join(raw_dir, folder_name))
+            ),
+            None,
+        )
+
+        if class_dir is None:
+            raise FileNotFoundError(
+                f"Missing raw class directory for '{class_name}'. "
+                f"Expected one of: {folder_candidates}"
+            )
 
         for name in sorted(os.listdir(class_dir)):
             path = os.path.join(class_dir, name)
