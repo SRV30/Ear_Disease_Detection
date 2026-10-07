@@ -174,7 +174,6 @@ export default function ResultCard({ result, pdfRef }) {
       )}
 
       <HeatmapPanel
-        backendURL={import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:5000"}
         imageUrl={result.image_url}
         heatmapUrl={result.heatmap_url}
       />
