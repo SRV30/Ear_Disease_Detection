@@ -11,10 +11,16 @@ ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg"}
 ALLOWED_MIME_TYPES = {"image/png", "image/jpeg"}
 IMG_SIZE = 224
 
+MODEL_NAME = "EfficientNet-B0"
+MODEL_VERSION = "1.0.0"
+MODEL_FRAMEWORK = "PyTorch"
+MODEL_ARCHITECTURE = "torchvision.models.efficientnet_b0"
+MODEL_INPUT_SIZE = IMG_SIZE
+MODEL_TEMPERATURE = None
+
 MAX_UPLOAD_SIZE = 50 * 1024 * 1024
 MAX_IMAGE_PIXELS = 25_000_000
 CALIBRATION_PATH = os.path.join(BASE_DIR, "../models/temperature_scaling.json")
-
 
 load_dotenv()
 
