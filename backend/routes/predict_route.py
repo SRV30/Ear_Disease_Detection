@@ -142,9 +142,11 @@ def predict():
             "heatmap_url": f"/media/{heatmap_filename}",
         }
 
-        history_collection.insert_one(data)
+        inserted = history_collection.insert_one(data)
+        history_id = str(inserted.inserted_id)
 
         return jsonify({
+            "id": history_id,
             "prediction": prediction,
             "confidence": round(confidence, 4),
             "explanation": analysis["explanation"],
@@ -156,7 +158,7 @@ def predict():
             "heatmap_url": f"/media/{heatmap_filename}",
         })
 
-    except Exception as exc:
+    except Exception:
         logging.exception("Prediction failed")
 
         for path in (heatmap_path, filepath):
