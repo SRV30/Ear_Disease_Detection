@@ -1,0 +1,22 @@
+{
+  "seed": 42,
+  "phash_threshold": 4,
+  "original_images": 3000,
+  "exact_duplicate_copies_removed": 78,
+  "unique_images": 2922,
+  "phash_groups": 1924,
+  "near_duplicate_groups": 509,
+  "cross_class_groups": 0,
+  "split_sizes": {
+    "train": 2059,
+    "val": 418,
+    "test": 445
+  },
+  "classes": [
+    "Acute Otitis Media",
+    "Cerumen Impaction",
+    "Chronic Otitis Media",
+    "Myringosclerosis",
+    "Normal"
+  ]
+}
