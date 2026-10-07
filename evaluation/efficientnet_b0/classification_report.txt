@@ -1,0 +1,11 @@
+                      precision    recall  f1-score   support
+
+  Acute Otitis Media     1.0000    1.0000    1.0000        61
+   Cerumen Impaction     1.0000    1.0000    1.0000       105
+Chronic Otitis Media     1.0000    1.0000    1.0000        68
+    Myringosclerosis     1.0000    1.0000    1.0000       101
+              Normal     1.0000    1.0000    1.0000       110
+
+            accuracy                         1.0000       445
+           macro avg     1.0000    1.0000    1.0000       445
+        weighted avg     1.0000    1.0000    1.0000       445
