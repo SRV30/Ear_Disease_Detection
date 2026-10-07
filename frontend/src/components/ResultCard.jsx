@@ -37,7 +37,7 @@ export default function ResultCard({ result, pdfRef }) {
 
   const confidence = Number(result.confidence);
   const confidenceText = Number.isFinite(confidence)
-    ? confidence.toFixed(2)
+    ? confidence.toFixed(4)
     : result.confidence;
 
   const probabilities = Array.isArray(result.probabilities)
